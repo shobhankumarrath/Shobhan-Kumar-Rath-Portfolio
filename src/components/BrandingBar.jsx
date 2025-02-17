@@ -1,16 +1,17 @@
 import React from "react";
 import { Typewriter } from "react-simple-typewriter";
+import IMG from './../assets/ray-so-export.png';
 
 const BrandingBar = () => {
     return (
         <div className="pt-16 bg-gray-800">
-            <div className="h-screen flex items-start justify-center bg-gray-800">
+            <div className="h-83 flex items-start justify-center bg-gray-800">
                 {/* Left Side - Animated Typing */}
-                <div className="w-1/3 h-64 flex flex-col justify-center bg-gray-800 shadow-lg rounded-lg p-6 mt-[+20px]">
+                <div className="w-1/3 h-64 flex flex-col justify-center bg-gray-600 shadow-lg rounded-lg p-6 mt-[+20px] transition-all duration-300 hover:bg-gray-500 hover:shadow-2xl hover:scale-105">
                     <span className="text-2xl font-bold mb-4 text-white">Your Digital Associate</span>
                     <span className="text-3xl font-semibold text-white">
                         <Typewriter
-                            words={["Frontend", "Backend", "Node.js", "React.JS"]}
+                            words={["Frontend", "Backend", "Node.js", "React.js"]}
                             loop={true}
                             cursor
                             cursorStyle="|"
@@ -20,13 +21,11 @@ const BrandingBar = () => {
                         />
                     </span>
                 </div>
-                <div className="w-10"></div>
+                <div className="w-25"></div>
                 {/* Right Side - Branding Content */}
-                <div className="w-1/3 h-64 flex flex-col justify-center bg-gary-800 shadow-lg rounded-lg p-6 mt-[+13px]">
-                    <span className="text-2xl font-bold mb-4 text-white">This is Branding Page</span>
-                    <span className="text-lg font-semibold text-white">
-                        Here will go a different div element.
-                    </span>
+                <div className="w-1/3 h-64 flex flex-col items-center justify-center bg-gray-600 shadow-lg rounded-lg p-6 mt-[+20px] transition-all duration-300 hover:bg-gray-500 hover:shadow-2xl overflow-hidden hover:scale-105">
+                    <span className="text-2xl font-bold mb-4 text-white">Transforming Ideas into Code</span>
+                    <img src={IMG} alt="Code Illustration" className="w-full h-full object-contain rounded-lg"></img>
                 </div>
             </div>
         </div>
