@@ -24,7 +24,7 @@ const BrandingBar = () => {
                 <div className="w-25"></div>
                 {/* Right Side - Branding Content */}
                 <div className="w-1/3 h-64 flex flex-col items-center justify-center bg-gray-600 shadow-lg rounded-lg p-6 mt-[+20px] transition-all duration-300 hover:bg-gray-500 hover:shadow-2xl overflow-hidden hover:scale-105">
-                    <span className="text-2xl font-bold mb-4 text-white">Transforming Ideas into Code</span>
+                    <span className="text-2xl font-bold mb-1 text-white">Transforming Ideas into Code</span>
                     <img src={IMG} alt="Code Illustration" className="w-full h-full object-contain rounded-lg"></img>
                 </div>
             </div>

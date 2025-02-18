@@ -15,6 +15,9 @@ const Navbar = () => {
                 <button onClick={() => document.getElementById("contactme").scrollIntoView({ behavior: 'smooth' })} className="text-white bg-transparent px-4 py-2 rounded-md transition duration-300 hover:bg-blue-500">
                     Let's Connect
                 </button>
+                <button onClick={() => document.getElementById("aboutme").scrollIntoView({ behavior: 'smooth' })} className="text-white bg-transparent px-4 py-2 rounded-md transition duration-300 hover:bg-red-500">
+                    About Me
+                </button>
             </div>
         </div>
 

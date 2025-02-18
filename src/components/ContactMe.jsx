@@ -6,7 +6,7 @@ const ContactMe = () => {
         <div className="pt-4"> {/* Adds space for the navbar */}
             <div className=''>
                 <div className=''>
-                    <h1>This is Contact me section</h1>
+                    <h1></h1>
                 </div>
             </div>
         </div>
