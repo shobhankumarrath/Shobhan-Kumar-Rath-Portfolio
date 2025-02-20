@@ -13,8 +13,8 @@ function App() {
       <Navbar />
       <BrandingBar />
       <AboutMe />
-      <Projects />
       <ContactMe />
+      <Projects />
     </>
   )
 }

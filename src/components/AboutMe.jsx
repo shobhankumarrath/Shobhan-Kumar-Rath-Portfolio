@@ -2,7 +2,7 @@ import React from 'react'
 
 const AboutMe = () => {
     return (
-        <div className='pt-5 bg-gray-800 h-15'>
+        <div className='pt-5 bg-gray-800 h-15' id='aboutme'>
             <div className='flex flex-col items-center justify-center'>
                 <h1 className='text-4xl text-white hover:scale-105'>🚀 Introduction</h1><br></br>
                 <p className='w-250 shadow-lg rounded-lg text-white mt-4 p-6 m-4 flex items-center justify-center transition-all duration-300 hover:bg-gray-700 hover:shadow-2xl hover:scale-105'>
