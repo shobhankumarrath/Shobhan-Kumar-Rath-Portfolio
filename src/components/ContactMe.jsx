@@ -4,7 +4,12 @@ import { motion } from "framer-motion"; // Import motion
 
 const ContactMe = () => {
     const form = useRef();
-    const [formData, setFormData] = useState({ name: "", email: "", number: "", message: "" });
+    const [formData, setFormData] = useState({
+        user_name: "",
+        user_email: "",
+        user_number: "",
+        message: ""
+    });
     const [errors, setErrors] = useState({});
 
     const validateForm = () => {
@@ -13,14 +18,14 @@ const ContactMe = () => {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
         const numberRegex = /^[0-9]+$/;
 
-        if (!formData.name.trim()) newErrors.name = "Name is required";
-        else if (!nameRegex.test(formData.name)) newErrors.name = "Only letters allowed";
+        if (!formData.user_name.trim()) newErrors.user_name = "Name is required";
+        else if (!nameRegex.test(formData.user_name)) newErrors.user_name = "Only letters allowed";
 
-        if (!formData.email.trim()) newErrors.email = "Email is required";
-        else if (!emailRegex.test(formData.email)) newErrors.email = "Enter a valid email";
+        if (!formData.user_email.trim()) newErrors.user_email = "Email is required";
+        else if (!emailRegex.test(formData.user_email)) newErrors.user_email = "Enter a valid email";
 
-        if (!formData.number.trim()) newErrors.number = "Mobile number is required";
-        else if (!numberRegex.test(formData.number)) newErrors.number = "Only numbers allowed";
+        if (!formData.user_number.trim()) newErrors.user_number = "Mobile number is required";
+        else if (!numberRegex.test(formData.user_number)) newErrors.user_number = "Only numbers allowed";
 
         if (!formData.message.trim()) newErrors.message = "Message cannot be empty";
 
@@ -34,16 +39,16 @@ const ContactMe = () => {
 
         emailjs
             .sendForm(
-                "shobhan1rath@gmail.com",
-                "template_jasap1s",
+                "shobhan1rath@gmail.com", // Replace with your EmailJS service ID
+                "template_jasap1s", // Replace with your template ID
                 form.current,
-                "GI-tkUYkvSgGaFl8j"
+                "GI-tkUYkvSgGaFl8j" // Replace with your EmailJS public key
             )
             .then(
                 () => {
                     alert("Message sent successfully!");
                     form.current.reset();
-                    setFormData({ name: "", email: "", number: "", message: "" });
+                    setFormData({ user_name: "", user_email: "", user_number: "", message: "" });
                     setErrors({});
                 },
                 () => {
@@ -52,7 +57,8 @@ const ContactMe = () => {
             );
     };
 
-    const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+    const handleChange = (e) =>
+        setFormData({ ...formData, [e.target.name]: e.target.value });
 
     return (
         <motion.div
@@ -67,7 +73,9 @@ const ContactMe = () => {
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.3 }}
             >
-                <h1 className="text-white text-3xl text-center mb-6" id='contactme'>Let's Connect</h1>
+                <h1 className="text-white text-3xl text-center mb-6" id="contactme">
+                    Let's Connect
+                </h1>
                 <form ref={form} onSubmit={sendEmail} className="flex flex-col gap-4">
                     {/* Full Name */}
                     <label htmlFor="fullName" className="text-lg">
@@ -76,13 +84,13 @@ const ContactMe = () => {
                     <input
                         type="text"
                         id="fullName"
-                        name="name"
-                        value={formData.name}
+                        name="user_name"
+                        value={formData.user_name}
                         onChange={handleChange}
                         placeholder="Full Name"
                         className="p-2 bg-gray-700 text-white rounded border border-gray-500 focus:outline-none"
                     />
-                    {errors.name && <p className="text-red-500">{errors.name}</p>}
+                    {errors.user_name && <p className="text-red-500">{errors.user_name}</p>}
 
                     {/* Mobile Number */}
                     <label htmlFor="mNumber" className="text-lg">
@@ -91,13 +99,13 @@ const ContactMe = () => {
                     <input
                         type="text"
                         id="mNumber"
-                        name="number"
-                        value={formData.number}
+                        name="user_number"
+                        value={formData.user_number}
                         onChange={handleChange}
                         placeholder="Mobile Number"
                         className="p-2 bg-gray-700 text-white rounded border border-gray-500 focus:outline-none"
                     />
-                    {errors.number && <p className="text-red-500">{errors.number}</p>}
+                    {errors.user_number && <p className="text-red-500">{errors.user_number}</p>}
 
                     {/* Email Address */}
                     <label htmlFor="email" className="text-lg">
@@ -106,13 +114,13 @@ const ContactMe = () => {
                     <input
                         type="email"
                         id="email"
-                        name="email"
-                        value={formData.email}
+                        name="user_email"
+                        value={formData.user_email}
                         onChange={handleChange}
                         placeholder="Email Address"
                         className="p-2 bg-gray-700 text-white rounded border border-gray-500 focus:outline-none"
                     />
-                    {errors.email && <p className="text-red-500">{errors.email}</p>}
+                    {errors.user_email && <p className="text-red-500">{errors.user_email}</p>}
 
                     {/* Short Description */}
                     <label htmlFor="sDesc" className="text-lg">
