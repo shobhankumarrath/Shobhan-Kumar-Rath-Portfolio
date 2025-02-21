@@ -35,7 +35,7 @@ const ContactMe = () => {
                     <input
                         type="text"
                         id="fullName"
-                        name="fullName"
+                        name="user_name"
                         placeholder="Full Name"
                         className="p-2 bg-gray-700 text-white rounded border border-gray-500 focus:outline-none"
                     />
@@ -44,7 +44,7 @@ const ContactMe = () => {
                     <input
                         type="number"
                         id="mNumber"
-                        name="contactNumber"
+                        name="user_number"
                         placeholder="Mobile Number"
                         className="p-2 bg-gray-700 text-white rounded border border-gray-500 focus:outline-none"
                     />
@@ -61,7 +61,7 @@ const ContactMe = () => {
                     <label htmlFor="sDesc" className="text-xl">Short Description:</label>
                     <textarea
                         id="sDesc"
-                        name="sDesc"
+                        name="message"
                         placeholder="Short Description"
                         className="p-2 bg-gray-700 text-white rounded border border-gray-500 focus:outline-none w-full h-24 resize-none"
                     />
