@@ -27,7 +27,7 @@ const ContactMe = () => {
     };
 
     return (
-        <div className="pt-12 md:pt-16 bg-gray-800 flex flex-col items-center">
+        <div className="pt-12 md:pt-16 bg-gray-800 flex flex-col items-center" id="contactme">
             <div className="bg-gray-900 text-white p-6 md:p-8 rounded-lg shadow-lg w-full max-w-md transition-all duration-300 hover:bg-gray-700 hover:shadow-2xl hover:scale-105">
                 <h1 className="text-white text-3xl md:text-4xl text-center mb-6">Let's Connect</h1>
                 <form ref={form} onSubmit={sendEmail} className="flex flex-col gap-4 w-full">
