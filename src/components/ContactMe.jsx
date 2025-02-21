@@ -67,7 +67,7 @@ const ContactMe = () => {
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.3 }}
             >
-                <h1 className="text-white text-3xl text-center mb-6">Let's Connect</h1>
+                <h1 className="text-white text-3xl text-center mb-6" id='contactme'>Let's Connect</h1>
                 <form ref={form} onSubmit={sendEmail} className="flex flex-col gap-4">
                     {/* Full Name */}
                     <label htmlFor="fullName" className="text-lg">
