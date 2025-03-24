@@ -1,9 +1,15 @@
 import React from "react";
 import img1 from "./../assets/dv.png";
 import img2 from "./../assets/mb.png";
+import img3 from "./../assets/Ecommerce.png";
 import { motion } from "framer-motion";
 
-const images = [img1, img2];
+const images = [
+    { src: img1, link: "https://shobhankumarrath.github.io/DataVisualization/" },
+    { src: img2, link: "https://medical-buddy.netlify.app/login" },
+    { src: img3, link: "https://shobhankumarrath.github.io/E-Commerce/" },
+];
+
 
 const Projects = () => {
     return (
@@ -27,13 +33,14 @@ const Projects = () => {
                         ease: "linear",
                     }}
                 >
-                    {images.map((src, index) => (
-                        <img
-                            key={index}
-                            src={src}
-                            alt={`Slide ${index + 1}`}
-                            className="w-full max-w-sm md:w-96 h-48 md:h-64 object-cover rounded-lg shadow-xl"
-                        />
+                    {images.map(({ src, link }, index) => (
+                        <a key={index} href={link} target="_blank" rel="noopener noreferrer">
+                            <img
+                                src={src}
+                                alt={`Slide ${index + 1}`}
+                                className="w-full max-w-sm md:w-96 h-48 md:h-64 object-cover rounded-lg shadow-xl hover:scale-105 transition-transform"
+                            />
+                        </a>
                     ))}
                 </motion.div>
             </div>
