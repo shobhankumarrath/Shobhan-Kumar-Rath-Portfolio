@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
-import { FaWhatsapp } from "react-icons/fa"; // optional icon
+import { FaWhatsapp } from "react-icons/fa";
 
 const ContactMe = () => {
     const form = useRef();
@@ -14,18 +14,70 @@ const ContactMe = () => {
     const [errors, setErrors] = useState({});
 
     const validateForm = () => {
-        // ... your existing validation
+        let newErrors = {};
+        const nameRegex = /^[A-Za-z\s]+$/;
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        const numberRegex = /^[0-9]{10}$/; // 10-digit mobile number
+
+        if (!formData.user_name.trim()) {
+            newErrors.user_name = "Name is required";
+        } else if (!nameRegex.test(formData.user_name)) {
+            newErrors.user_name = "Only letters allowed";
+        }
+
+        if (!formData.user_email.trim()) {
+            newErrors.user_email = "Email is required";
+        } else if (!emailRegex.test(formData.user_email)) {
+            newErrors.user_email = "Enter a valid email";
+        }
+
+        if (!formData.user_number.trim()) {
+            newErrors.user_number = "Mobile number is required";
+        } else if (!numberRegex.test(formData.user_number)) {
+            newErrors.user_number = "Enter a valid 10-digit number";
+        }
+
+        if (!formData.message.trim()) {
+            newErrors.message = "Message cannot be empty";
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
     };
 
     const sendEmail = (e) => {
-        // ... your existing sendEmail
+        e.preventDefault();
+        if (!validateForm()) return;
+
+        emailjs
+            .sendForm(
+                "shobhan1rath@gmail.com",    // ⬅ Replace with your EmailJS Service ID
+                "template_jasap1s",   // ⬅ Replace with your EmailJS Template ID
+                form.current,
+                "GI-tkUYkvSgGaFl8j"     // ⬅ Replace with your EmailJS Public Key
+            )
+            .then(
+                () => {
+                    alert("Message sent successfully!");
+                    form.current.reset();
+                    setFormData({
+                        user_name: "",
+                        user_email: "",
+                        user_number: "",
+                        message: "",
+                    });
+                    setErrors({});
+                },
+                () => {
+                    alert("Failed to send message, please try again.");
+                }
+            );
     };
 
     const handleChange = (e) =>
         setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    // Build your WhatsApp URL with a pre-filled message:
-    const whatsappNumber = "918847881069"; // Kolkata number with country code
+    const whatsappNumber = "918847881069"; // With country code
     const prefill = encodeURIComponent(
         `Hi, I’d like to know more about your website services.`
     );
@@ -48,7 +100,7 @@ const ContactMe = () => {
                     Let’s Connect
                 </h1>
 
-                {/* WhatsApp Click-to-Chat Button */}
+                {/* WhatsApp Button */}
                 <div className="flex justify-center mb-6">
                     <a
                         href={waLink}
@@ -61,8 +113,9 @@ const ContactMe = () => {
                     </a>
                 </div>
 
+                {/* Contact Form */}
                 <form ref={form} onSubmit={sendEmail} className="flex flex-col gap-4">
-                    {/* Full Name */}
+                    {/* Name */}
                     <label htmlFor="fullName" className="text-lg">
                         Full Name:
                     </label>
@@ -79,7 +132,7 @@ const ContactMe = () => {
                         <p className="text-red-500">{errors.user_name}</p>
                     )}
 
-                    {/* Mobile Number */}
+                    {/* Phone Number */}
                     <label htmlFor="mNumber" className="text-lg">
                         Mobile Number:
                     </label>
@@ -96,7 +149,7 @@ const ContactMe = () => {
                         <p className="text-red-500">{errors.user_number}</p>
                     )}
 
-                    {/* Email Address */}
+                    {/* Email */}
                     <label htmlFor="email" className="text-lg">
                         Email Address:
                     </label>
@@ -113,7 +166,7 @@ const ContactMe = () => {
                         <p className="text-red-500">{errors.user_email}</p>
                     )}
 
-                    {/* Short Description */}
+                    {/* Message */}
                     <label htmlFor="sDesc" className="text-lg">
                         Short Description:
                     </label>
