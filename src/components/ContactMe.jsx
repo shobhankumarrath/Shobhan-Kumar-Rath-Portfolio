@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
-import { motion } from "framer-motion"; // Import motion
+import { motion } from "framer-motion";
+import { FaWhatsapp } from "react-icons/fa"; // optional icon
 
 const ContactMe = () => {
     const form = useRef();
@@ -8,57 +9,27 @@ const ContactMe = () => {
         user_name: "",
         user_email: "",
         user_number: "",
-        message: ""
+        message: "",
     });
     const [errors, setErrors] = useState({});
 
     const validateForm = () => {
-        let newErrors = {};
-        const nameRegex = /^[A-Za-z\s]+$/;
-        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-        const numberRegex = /^[0-9]+$/;
-
-        if (!formData.user_name.trim()) newErrors.user_name = "Name is required";
-        else if (!nameRegex.test(formData.user_name)) newErrors.user_name = "Only letters allowed";
-
-        if (!formData.user_email.trim()) newErrors.user_email = "Email is required";
-        else if (!emailRegex.test(formData.user_email)) newErrors.user_email = "Enter a valid email";
-
-        if (!formData.user_number.trim()) newErrors.user_number = "Mobile number is required";
-        else if (!numberRegex.test(formData.user_number)) newErrors.user_number = "Only numbers allowed";
-
-        if (!formData.message.trim()) newErrors.message = "Message cannot be empty";
-
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
+        // ... your existing validation
     };
 
     const sendEmail = (e) => {
-        e.preventDefault();
-        if (!validateForm()) return;
-
-        emailjs
-            .sendForm(
-                "shobhan1rath@gmail.com", // Replace with your EmailJS service ID
-                "template_jasap1s", // Replace with your template ID
-                form.current,
-                "GI-tkUYkvSgGaFl8j" // Replace with your EmailJS public key
-            )
-            .then(
-                () => {
-                    alert("Message sent successfully!");
-                    form.current.reset();
-                    setFormData({ user_name: "", user_email: "", user_number: "", message: "" });
-                    setErrors({});
-                },
-                () => {
-                    alert("Failed to send message, please try again.");
-                }
-            );
+        // ... your existing sendEmail
     };
 
     const handleChange = (e) =>
         setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    // Build your WhatsApp URL with a pre-filled message:
+    const whatsappNumber = "918847881069"; // Kolkata number with country code
+    const prefill = encodeURIComponent(
+        `Hi, I’d like to know more about your website services.`
+    );
+    const waLink = `https://wa.me/${whatsappNumber}?text=${prefill}`;
 
     return (
         <motion.div
@@ -74,8 +45,22 @@ const ContactMe = () => {
                 transition={{ duration: 0.3 }}
             >
                 <h1 className="text-white text-3xl text-center mb-6" id="contactme">
-                    Let's Connect
+                    Let’s Connect
                 </h1>
+
+                {/* WhatsApp Click-to-Chat Button */}
+                <div className="flex justify-center mb-6">
+                    <a
+                        href={waLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 bg-green-500 hover:bg-green-600 px-4 py-2 rounded text-white transition"
+                    >
+                        <FaWhatsapp size={20} />
+                        Chat on WhatsApp
+                    </a>
+                </div>
+
                 <form ref={form} onSubmit={sendEmail} className="flex flex-col gap-4">
                     {/* Full Name */}
                     <label htmlFor="fullName" className="text-lg">
@@ -90,7 +75,9 @@ const ContactMe = () => {
                         placeholder="Full Name"
                         className="p-2 bg-gray-700 text-white rounded border border-gray-500 focus:outline-none"
                     />
-                    {errors.user_name && <p className="text-red-500">{errors.user_name}</p>}
+                    {errors.user_name && (
+                        <p className="text-red-500">{errors.user_name}</p>
+                    )}
 
                     {/* Mobile Number */}
                     <label htmlFor="mNumber" className="text-lg">
@@ -105,7 +92,9 @@ const ContactMe = () => {
                         placeholder="Mobile Number"
                         className="p-2 bg-gray-700 text-white rounded border border-gray-500 focus:outline-none"
                     />
-                    {errors.user_number && <p className="text-red-500">{errors.user_number}</p>}
+                    {errors.user_number && (
+                        <p className="text-red-500">{errors.user_number}</p>
+                    )}
 
                     {/* Email Address */}
                     <label htmlFor="email" className="text-lg">
@@ -120,7 +109,9 @@ const ContactMe = () => {
                         placeholder="Email Address"
                         className="p-2 bg-gray-700 text-white rounded border border-gray-500 focus:outline-none"
                     />
-                    {errors.user_email && <p className="text-red-500">{errors.user_email}</p>}
+                    {errors.user_email && (
+                        <p className="text-red-500">{errors.user_email}</p>
+                    )}
 
                     {/* Short Description */}
                     <label htmlFor="sDesc" className="text-lg">
