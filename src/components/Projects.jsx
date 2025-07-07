@@ -2,12 +2,14 @@ import React from "react";
 import img1 from "./../assets/dv.png";
 import img2 from "./../assets/mb.png";
 import img3 from "./../assets/Ecommerce.png";
+import img4 from "./../assets/test_my_knowledge.png"
 import { motion } from "framer-motion";
 
 const images = [
     { src: img1, link: "https://shobhankumarrath.github.io/DataVisualization/" },
     { src: img2, link: "https://medical-buddy.netlify.app/login" },
     { src: img3, link: "https://shobhankumarrath.github.io/E-Commerce/" },
+    { src: img4, link: "https://shobhankumarrath.github.io/Test_my_knowledge_frontend/" }
 ];
 
 
