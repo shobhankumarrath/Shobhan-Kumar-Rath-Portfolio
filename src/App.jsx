@@ -15,6 +15,16 @@ function App() {
       <AboutMe />
       <ContactMe />
       <Projects />
+
+      {/* Floating resume download button, visible on all sections */}
+      <a
+        href="Shobhan Kumar Rath-Resume.pdf"
+        download
+        className="fixed bottom-4 left-4 z-40 rounded-full bg-green-600 px-4 py-2 text-sm font-semibold text-white shadow-lg hover:bg-green-500 transition-colors"
+      >
+        Download Resume
+      </a>
+
       <RecruiterChatWidget />
     </div>
   )

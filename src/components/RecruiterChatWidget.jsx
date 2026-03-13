@@ -42,10 +42,7 @@ function RecruiterChatWidget() {
         <div className="mb-3 w-80 max-w-[90vw] rounded-2xl bg-slate-900/95 text-slate-50 shadow-2xl border border-slate-700 backdrop-blur">
           <div className="flex items-center justify-between px-4 py-3 border-b border-slate-700">
             <div className="flex flex-col">
-              <span className="text-sm font-semibold">Chat with Shobhan&apos;s AI</span>
-              <span className="text-[11px] text-slate-300">
-                Recruiter-focused assistant · Beta
-              </span>
+              <span className="text-sm font-semibold">Chat with Shobhan</span>
             </div>
             <button
               type="button"

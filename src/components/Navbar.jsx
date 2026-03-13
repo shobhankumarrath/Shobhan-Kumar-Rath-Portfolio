@@ -47,6 +47,13 @@ const Navbar = () => {
                 >
                     About Me
                 </button>
+                <a
+                    href="Shobhan Kumar Rath-Resume.pdf"
+                    download
+                    className="text-white px-4 py-2 rounded-md transition duration-300 bg-green-600 hover:bg-green-500"
+                >
+                    Download Resume
+                </a>
             </div>
 
             {/* Mobile Menu Button */}
@@ -92,6 +99,14 @@ const Navbar = () => {
                 >
                     About Me
                 </button>
+                <a
+                    href="Shobhan Kumar Rath-Resume.pdf"
+                    download
+                    className="text-white text-lg px-4 py-2 rounded-md transition duration-300 bg-green-600 hover:bg-green-500 w-full text-center"
+                    onClick={() => setMenuOpen(false)}
+                >
+                    Download Resume
+                </a>
             </div>
         </nav>
     );
