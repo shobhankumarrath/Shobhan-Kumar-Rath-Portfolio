@@ -20,9 +20,10 @@ function App() {
       <a
         href="Shobhan Kumar Rath-Resume.pdf"
         download
-        className="fixed bottom-4 left-4 z-40 rounded-full bg-green-600 px-4 py-2 text-sm font-semibold text-white shadow-lg hover:bg-green-500 transition-colors"
+        className="fixed bottom-6 left-6 z-40 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald-500 via-lime-400 to-amber-300 px-4 py-2 text-xs md:text-sm font-semibold text-slate-900 shadow-[0_0_30px_rgba(190,242,100,0.8)] hover:from-emerald-400 hover:via-lime-300 hover:to-amber-200 transition-transform duration-200 hover:scale-105"
       >
-        Download Resume
+        <span className="h-2 w-2 rounded-full bg-emerald-700 shadow-sm" />
+        <span>Download Resume</span>
       </a>
 
       <RecruiterChatWidget />

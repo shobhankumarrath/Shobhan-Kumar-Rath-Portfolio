@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { FaComments, FaTimes } from 'react-icons/fa'
 
 const initialAssistantMessage = {
@@ -23,6 +23,7 @@ function RecruiterChatWidget() {
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
+  const messagesEndRef = useRef(null)
 
   const toggleOpen = () => {
     setIsOpen((prev) => !prev)
@@ -86,25 +87,38 @@ function RecruiterChatWidget() {
     }
   }
 
+  const hasOnlyWelcome = messages.length === 1
+
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [messages.length, isLoading])
+
   return (
-    <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end">
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
       {isOpen && (
-        <div className="mb-3 w-80 max-w-[90vw] rounded-2xl bg-slate-900/95 text-slate-50 shadow-2xl border border-slate-700 backdrop-blur">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-slate-700">
-            <div className="flex flex-col">
-              <span className="text-sm font-semibold">Chat with Shobhan</span>
+        <div className="mb-3 w-80 max-w-[90vw] rounded-3xl bg-gradient-to-br from-slate-900/95 via-slate-900/90 to-indigo-900/90 text-slate-50 shadow-[0_0_35px_rgba(79,70,229,0.6)] border border-indigo-500/40 backdrop-blur-xl">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-indigo-500/40">
+            <div className="flex flex-col gap-0.5">
+              <span className="text-sm font-semibold tracking-wide">
+                Chat with <span className="text-indigo-300">Shobhan</span>
+              </span>
+              <span className="text-[10px] uppercase tracking-[0.16em] text-indigo-200/80">
+                AI Career Assistant
+              </span>
             </div>
             <button
               type="button"
               onClick={toggleOpen}
-              className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors"
+              className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-slate-800/90 text-slate-200 hover:bg-slate-700 transition-colors border border-indigo-400/50"
               aria-label="Close chat"
             >
               <FaTimes className="h-3 w-3" />
             </button>
           </div>
 
-          <div className="flex max-h-80 min-h-[220px] flex-col gap-2 overflow-y-auto px-3 py-3 text-sm">
+          <div className="flex max-h-80 min-h-[220px] flex-col gap-2 overflow-y-auto px-3 py-3 text-[13px]">
             {messages.map((message) => (
               <div
                 key={message.id}
@@ -135,19 +149,20 @@ function RecruiterChatWidget() {
                 {error}
               </div>
             )}
+            <div ref={messagesEndRef} />
           </div>
 
-          <form onSubmit={handleSend} className="flex items-center gap-2 border-t border-slate-700 px-3 py-2">
+          <form onSubmit={handleSend} className="flex items-center gap-2 border-t border-indigo-500/40 px-3 py-2 bg-slate-950/40">
             <input
               type="text"
               value={input}
               onChange={handleChange}
               placeholder="Ask about skills, projects..."
-              className="flex-1 rounded-full border border-slate-700 bg-slate-900/80 px-3 py-2 text-xs text-slate-50 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex-1 rounded-full border border-slate-700/70 bg-slate-900/70 px-3 py-2 text-xs text-slate-50 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-400"
             />
             <button
               type="submit"
-              className="inline-flex items-center justify-center rounded-full bg-blue-600 px-3 py-2 text-xs font-semibold text-white shadow hover:bg-blue-500 disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
+              className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-3 py-2 text-xs font-semibold text-white shadow-md hover:from-indigo-400 hover:to-fuchsia-400 disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
               disabled={!input.trim()}
             >
               Send
@@ -159,10 +174,17 @@ function RecruiterChatWidget() {
       <button
         type="button"
         onClick={toggleOpen}
-        className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-blue-600 text-white shadow-xl hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-slate-900"
+        className={`relative inline-flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 via-fuchsia-500 to-amber-400 text-white shadow-[0_0_35px_rgba(251,191,36,0.7)] hover:from-indigo-400 hover:via-fuchsia-400 hover:to-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-slate-950 transition-transform duration-200 hover:scale-105 ${
+          !isOpen && hasOnlyWelcome ? 'animate-pulse' : ''
+        }`}
         aria-label="Open recruiter chat"
       >
-        <FaComments className="h-5 w-5" />
+        <FaComments className="h-6 w-6 drop-shadow" />
+        {!isOpen && hasOnlyWelcome && (
+          <span className="absolute -top-1 -right-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-emerald-400 text-[9px] font-bold text-slate-950 shadow-lg">
+            AI
+          </span>
+        )}
       </button>
     </div>
   )
