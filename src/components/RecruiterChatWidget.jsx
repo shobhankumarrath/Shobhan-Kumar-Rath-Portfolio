@@ -8,10 +8,21 @@ const initialAssistantMessage = {
     "Hi! I'm Shobhan's AI assistant. Ask me anything about his skills, projects, or hiring details.",
 }
 
+function normalizeAssistantText(text) {
+  if (!text) return ''
+  return text
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/p>/gi, '\n\n')
+    .replace(/<[^>]+>/g, '')
+    .trim()
+}
+
 function RecruiterChatWidget() {
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState([initialAssistantMessage])
   const [input, setInput] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const toggleOpen = () => {
     setIsOpen((prev) => !prev)
@@ -21,19 +32,58 @@ function RecruiterChatWidget() {
     setInput(event.target.value)
   }
 
-  const handleSend = (event) => {
+  const handleSend = async (event) => {
     event?.preventDefault()
     const trimmed = input.trim()
     if (!trimmed) return
 
-    const newMessage = {
+    const userMessage = {
       id: `${Date.now()}`,
       role: 'user',
       content: trimmed,
     }
 
-    setMessages((prev) => [...prev, newMessage])
+    setMessages((prev) => [...prev, userMessage])
     setInput('')
+    setError('')
+    setIsLoading(true)
+
+    try {
+      const response = await fetch(
+        'https://backend-chatbot-api-portfolio.vercel.app/api/chat',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            message: trimmed,
+          }),
+        },
+      )
+
+      if (!response.ok) {
+        throw new Error('Failed to get response from assistant.')
+      }
+
+      const data = await response.json()
+      const rawText =
+        data.reply || data.message || data.answer || 'Sorry, I could not generate a response.'
+      const replyText = normalizeAssistantText(rawText)
+
+      const assistantMessage = {
+        id: `${Date.now()}-assistant`,
+        role: 'assistant',
+        content: replyText,
+      }
+
+      setMessages((prev) => [...prev, assistantMessage])
+    } catch (err) {
+      console.error(err)
+      setError('Something went wrong. Please try again.')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -63,7 +113,7 @@ function RecruiterChatWidget() {
                 }`}
               >
                 <div
-                  className={`max-w-[80%] rounded-2xl px-3 py-2 ${
+                  className={`max-w-[80%] rounded-2xl px-3 py-2 whitespace-pre-wrap break-words ${
                     message.role === 'user'
                       ? 'bg-blue-600 text-white rounded-br-sm'
                       : 'bg-slate-800 text-slate-50 rounded-bl-sm'
@@ -73,6 +123,18 @@ function RecruiterChatWidget() {
                 </div>
               </div>
             ))}
+            {isLoading && (
+              <div className="flex justify-start">
+                <div className="max-w-[80%] rounded-2xl rounded-bl-sm bg-slate-800 px-3 py-2 text-slate-300 text-xs italic">
+                  Shobhan&apos;s assistant is typing...
+                </div>
+              </div>
+            )}
+            {error && (
+              <div className="text-[11px] text-red-400 px-1">
+                {error}
+              </div>
+            )}
           </div>
 
           <form onSubmit={handleSend} className="flex items-center gap-2 border-t border-slate-700 px-3 py-2">
